@@ -1,0 +1,20 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+# sample credentials
+USER = "admin"
+PASS = "1234"
+
+@app.route("/login", methods=["POST"])
+def login():
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    if username == USER and password == PASS:
+        return jsonify({"status": "success", "message": "Login successful!"})
+    else:
+        return jsonify({"status": "fail", "message": "Invalid credentials"}), 401
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
